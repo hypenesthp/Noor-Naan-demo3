@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noor and Naan — Contemporary Indian Dining, Mumbai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-primary:#0B0B0C;
+    --bg-card:#141416;
+    --bg-card-raised:#1B1B1E;
+    --gold:#D4AF37;
+    --gold-soft:rgba(212,175,55,0.4);
+    --champagne:#E5D3B3;
+    --text-primary:#F5F1E8;
+    --text-secondary:#A8A5A0;
+    --line:rgba(245,241,232,0.08);
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="light"]){
+      --bg-primary:#0B0B0C; --bg-card:#141416; --bg-card-raised:#1B1B1E;
+      --gold:#D4AF37; --gold-soft:rgba(212,175,55,0.4); --champagne:#E5D3B3;
+      --text-primary:#F5F1E8; --text-secondary:#A8A5A0; --line:rgba(245,241,232,0.08);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg-primary:#0B0B0C; --bg-card:#141416; --bg-card-raised:#1B1B1E;
+    --gold:#D4AF37; --gold-soft:rgba(212,175,55,0.4); --champagne:#E5D3B3;
+    --text-primary:#F5F1E8; --text-secondary:#A8A5A0; --line:rgba(245,241,232,0.08);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg-primary);
+    color:var(--text-primary);
+    font-family:'Montserrat',sans-serif;
+    font-weight:300;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+  ::selection{background:var(--gold-soft); color:#0B0B0C;}
+
+  h1,h2,h3{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:400;
+    letter-spacing:0.01em;
+    margin:0;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  button{font-family:inherit; cursor:pointer;}
+  :focus-visible{outline:1px solid var(--gold); outline-offset:3px;}
+
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  @media (max-width:640px){.wrap{padding:0 20px;}}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    padding:26px 0;
+    transition:background .5s ease, padding .5s ease, backdrop-filter .5s ease;
+  }
+  header.nav.scrolled{
+    background:rgba(11,11,12,0.88);
+    backdrop-filter:blur(12px);
+    padding:16px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex; align-items:center; justify-content:space-between;}
+  .brand{font-family:'Cormorant Garamond',serif; font-size:1.3rem; letter-spacing:0.16em; color:var(--text-primary); white-space:nowrap;}
+  @media (max-width:420px){.brand{font-size:1.05rem; letter-spacing:0.1em;}}
+  nav.links{display:flex; gap:36px; font-size:0.72rem; letter-spacing:0.16em;}
+  nav.links a{color:var(--text-secondary); position:relative; padding-bottom:4px;}
+  nav.links a::after{content:""; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--gold); transition:width .35s ease;}
+  nav.links a:hover{color:var(--text-primary);}
+  nav.links a:hover::after{width:100%;}
+  .nav-cta{border:1px solid var(--gold-soft); padding:9px 20px; font-size:0.68rem; letter-spacing:0.14em; color:var(--champagne); transition:background .35s ease,color .35s ease;}
+  .nav-cta:hover{background:var(--gold); color:#0B0B0C;}
+  .burger{display:none; flex-direction:column; gap:5px; background:none; border:none;}
+  .burger span{width:22px; height:1px; background:var(--text-primary); display:block;}
+  .mobile-menu{
+    display:none; position:fixed; inset:0; background:var(--bg-primary); z-index:99;
+    flex-direction:column; align-items:center; justify-content:center; gap:28px;
+  }
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-family:'Cormorant Garamond',serif; font-size:1.6rem;}
+  .mobile-close{position:absolute; top:26px; right:24px; background:none; border:none; color:var(--text-primary); font-size:1.4rem;}
+
+  @media (max-width:860px){
+    nav.links{display:none;}
+    .nav-cta{display:none;}
+    .burger{display:flex;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; min-height:100svh; display:flex; align-items:center; justify-content:center;
+    text-align:center; overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(212,175,55,0.10), transparent 45%),
+      radial-gradient(circle at 75% 80%, rgba(212,175,55,0.06), transparent 50%),
+      linear-gradient(180deg, rgba(11,11,12,0.55), rgba(11,11,12,0.92) 70%, #0B0B0C 100%),
+      repeating-linear-gradient(115deg, #121213 0px, #121213 2px, #0e0e10 2px, #0e0e10 4px);
+    background-size:cover, cover, cover, 4px 4px;
+  }
+  .mouse-glow{
+    position:absolute; inset:0; pointer-events:none; z-index:1;
+    background:radial-gradient(320px circle at var(--mx,50%) var(--my,50%), rgba(212,175,55,0.08), transparent 60%);
+  }
+  .hero-content{position:relative; z-index:2; padding:0 24px;}
+  .eyebrow{
+    font-size:0.7rem; letter-spacing:0.32em; color:var(--champagne); margin-bottom:22px;
+    display:inline-block; opacity:0.9;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 7vw, 5.4rem);
+    line-height:1.05;
+    font-weight:300;
+    color:var(--text-primary);
+  }
+  .hero h1 em{font-style:italic; color:var(--champagne);}
+  .hero-sub{
+    max-width:460px; margin:26px auto 0; color:var(--text-secondary); font-size:0.98rem; line-height:1.8;
+  }
+  .hero-ctas{display:flex; gap:18px; justify-content:center; margin-top:46px; flex-wrap:wrap;}
+  .btn-outline{
+    border:1px solid var(--gold-soft); padding:15px 34px; font-size:0.72rem; letter-spacing:0.16em; color:var(--text-primary);
+    transition:background .4s ease, color .4s ease, border-color .4s ease;
+  }
+  .btn-outline:hover{background:var(--gold); border-color:var(--gold); color:#0B0B0C;}
+  .btn-ghost{
+    padding:15px 12px; font-size:0.72rem; letter-spacing:0.16em; color:var(--text-secondary); border-bottom:1px solid transparent;
+    transition:color .3s ease, border-color .3s ease;
+  }
+  .btn-ghost:hover{color:var(--text-primary); border-color:var(--gold-soft);}
+  .scroll-cue{
+    position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
+    font-size:0.62rem; letter-spacing:0.28em; color:var(--text-secondary); z-index:2;
+  }
+  .scroll-cue .line{width:1px; height:34px; background:var(--gold-soft); margin:10px auto 0; animation:scrollline 2.4s ease-in-out infinite;}
+  @keyframes scrollline{0%{transform:scaleY(0); transform-origin:top;}50%{transform:scaleY(1); transform-origin:top;}50.01%{transform-origin:bottom;}100%{transform:scaleY(0); transform-origin:bottom;}}
+
+  /* ---------- SECTION SHARED ---------- */
+  section{padding:150px 0;}
+  @media (max-width:760px){section{padding:96px 0;}}
+  .section-head{max-width:620px; margin-bottom:80px;}
+  .section-head.center{margin-left:auto; margin-right:auto; text-align:center;}
+  .kicker{display:flex; align-items:center; gap:14px; margin-bottom:22px; color:var(--champagne); font-size:0.7rem; letter-spacing:0.24em;}
+  .kicker .dash{width:30px; height:1px; background:var(--gold);}
+  .section-head.center .kicker{justify-content:center;}
+  .section-head h2{font-size:clamp(2rem, 4vw, 3rem); line-height:1.15; font-weight:300;}
+  .section-head p{color:var(--text-secondary); margin-top:22px; line-height:1.85; font-size:0.98rem;}
+
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .9s ease, transform .9s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- INTRO ---------- */
+  .intro{text-align:center;}
+  .intro .wrap{max-width:760px;}
+  .intro blockquote{
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(1.5rem,3vw,2.1rem);
+    color:var(--champagne); line-height:1.5; margin:0 0 30px;
+  }
+  .intro p{color:var(--text-secondary); line-height:1.9; font-size:1rem; max-width:560px; margin:0 auto;}
+
+  /* ---------- MENU / CHEF'S CANVAS ---------- */
+  .menu-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px 40px;}
+  @media (max-width:760px){.menu-grid{grid-template-columns:1fr; gap:50px;}}
+  .dish{cursor:pointer;}
+  .dish-frame{
+    position:relative; aspect-ratio:4/5; overflow:hidden; background:var(--bg-card);
+    border:1px solid var(--line);
+  }
+  .dish-art{position:absolute; inset:0; transition:transform 1.1s cubic-bezier(.2,.7,.2,1);}
+  .dish:hover .dish-art{transform:scale(1.06);}
+  .dish-num{position:absolute; top:20px; left:20px; font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--champagne); font-size:1rem; opacity:0.85; z-index:2;}
+  .dish-info{margin-top:22px;}
+  .dish-info h3{font-size:1.5rem; font-weight:400; color:var(--text-primary);}
+  .dish-meta{
+    max-height:0; overflow:hidden; transition:max-height .55s ease, opacity .55s ease, margin-top .55s ease;
+    opacity:0; color:var(--text-secondary); font-size:0.86rem; line-height:1.9;
+  }
+  .dish:hover .dish-meta, .dish.open .dish-meta{max-height:140px; opacity:1; margin-top:12px;}
+  .dish-rule{width:26px; height:1px; background:var(--gold-soft); margin-top:10px;}
+  .dish-tag{color:var(--text-secondary); font-size:0.86rem; margin-top:6px; letter-spacing:0.02em;}
+
+  /* dish art gradients — stand-ins for photography */
+  .art-1{background:radial-gradient(circle at 30% 30%, #3a2418, #150d08 70%);}
+  .art-2{background:radial-gradient(circle at 65% 35%, #4a3a14, #14110a 72%);}
+  .art-3{background:radial-gradient(circle at 40% 60%, #351322, #100810 75%);}
+  .art-4{background:radial-gradient(circle at 60% 40%, #142a2c, #0a1213 75%);}
+  .art-1::after,.art-2::after,.art-3::after,.art-4::after{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(circle at center, rgba(212,175,55,0.14), transparent 55%);
+  }
+
+  /* ---------- CHEF ---------- */
+  .chef{display:grid; grid-template-columns:0.8fr 1fr; gap:70px; align-items:center;}
+  @media (max-width:820px){.chef{grid-template-columns:1fr; gap:44px;}}
+  .chef-portrait{
+    aspect-ratio:3/4; background:radial-gradient(circle at 35% 25%, #26201a, #0d0b09 75%); position:relative; border:1px solid var(--line);
+  }
+  .chef-portrait::after{content:""; position:absolute; inset:0; background:radial-gradient(circle at 70% 80%, rgba(212,175,55,0.10), transparent 55%);}
+  .chef-quote{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(1.5rem,2.6vw,2rem); color:var(--champagne); line-height:1.5; margin-bottom:24px;}
+  .chef-name{font-size:0.78rem; letter-spacing:0.14em; color:var(--text-secondary); margin-bottom:26px;}
+  .chef p.body{color:var(--text-secondary); line-height:1.9; font-size:0.98rem; max-width:460px;}
+  .link-arrow{display:inline-block; margin-top:30px; font-size:0.78rem; letter-spacing:0.1em; color:var(--champagne); border-bottom:1px solid var(--gold-soft); padding-bottom:4px;}
+
+  /* ---------- SPICE ---------- */
+  .spice-layout{position:relative; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;}
+  @media (max-width:820px){.spice-layout{grid-template-columns:1fr;}}
+  .spice-visual{position:relative; aspect-ratio:1/1; background:radial-gradient(circle at 50% 40%, #241a10, #0d0a07 75%); border:1px solid var(--line);}
+  .spice-visual::after{content:""; position:absolute; inset:0; background:radial-gradient(circle at 60% 30%, rgba(212,175,55,0.13), transparent 55%);}
+  .hotspot{
+    position:absolute; width:16px; height:16px; border-radius:50%;
+    background:var(--gold); box-shadow:0 0 0 6px rgba(212,175,55,0.16);
+    border:none; transform:translate(-50%,-50%);
+  }
+  .hotspot::before{content:""; position:absolute; inset:-8px; border-radius:50%; border:1px solid var(--gold-soft); animation:pulse 2.6s ease-out infinite;}
+  @keyframes pulse{0%{transform:scale(0.6); opacity:1;}100%{transform:scale(1.9); opacity:0;}}
+  .spice-text h3{font-size:1rem; letter-spacing:0.06em; color:var(--text-secondary); margin-bottom:8px; transition:color .3s ease;}
+  .spice-text .spice-title{font-family:'Cormorant Garamond',serif; font-size:2.2rem; color:var(--text-primary); margin-bottom:16px; transition:opacity .3s ease;}
+  .spice-text p{color:var(--text-secondary); line-height:1.85; font-size:0.96rem; min-height:76px;}
+  .spice-note{margin-top:18px; font-size:0.72rem; letter-spacing:0.14em; color:var(--champagne);}
+
+  /* ---------- EXPERIENCE ---------- */
+  .exp-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  @media (max-width:820px){.exp-grid{grid-template-columns:1fr;}}
+  .exp-card{background:var(--bg-primary); padding:52px 40px;}
+  .exp-num{font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--gold); font-size:1.1rem;}
+  .exp-card h3{margin-top:18px; font-size:1.6rem; font-weight:400;}
+  .exp-card p{margin-top:16px; color:var(--text-secondary); font-size:0.92rem; line-height:1.85;}
+
+  /* ---------- RESERVE ---------- */
+  .reserve{background:var(--bg-card);}
+  .reserve-box{
+    max-width:640px; margin:0 auto; background:var(--bg-primary); border:1px solid var(--line); padding:56px;
+  }
+  @media (max-width:640px){.reserve-box{padding:34px 24px;}}
+  .step-track{display:flex; justify-content:space-between; margin-bottom:44px; font-size:0.68rem; letter-spacing:0.14em; color:var(--text-secondary);}
+  .step-track span.active{color:var(--gold);}
+  .step-track .sep{flex:1; height:1px; background:var(--line); align-self:center; margin:0 12px;}
+  .step-title{font-size:0.7rem; letter-spacing:0.2em; color:var(--champagne); margin-bottom:26px;}
+  .step-panel{display:none;}
+  .step-panel.active{display:block; animation:fadein .5s ease;}
+  @keyframes fadein{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+
+  .exp-option{
+    border:1px solid var(--line); padding:20px 22px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center;
+    transition:border-color .3s ease, background .3s ease;
+  }
+  .exp-option:hover{border-color:var(--gold-soft);}
+  .exp-option.selected{border-color:var(--gold); background:var(--bg-card-raised);}
+  .exp-option h4{font-weight:400; font-family:'Cormorant Garamond',serif; font-size:1.3rem;}
+  .exp-option span{color:var(--text-secondary); font-size:0.82rem;}
+
+  .row-flex{display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:26px;}
+  .field-label{font-size:0.68rem; letter-spacing:0.14em; color:var(--text-secondary); margin-bottom:10px; display:block;}
+  select, input[type="date"]{
+    background:var(--bg-card); border:1px solid var(--line); color:var(--text-primary);
+    padding:12px 14px; font-family:'Montserrat',sans-serif; font-size:0.9rem; width:100%;
+  }
+  .stepper{display:flex; align-items:center; gap:18px; border:1px solid var(--line); padding:10px 18px; width:fit-content;}
+  .stepper button{background:none; border:none; color:var(--gold); font-size:1.1rem; width:26px;}
+  .time-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px;}
+  @media (max-width:480px){.time-grid{grid-template-columns:repeat(2,1fr);}}
+  .time-opt{border:1px solid var(--line); text-align:center; padding:12px 6px; font-size:0.82rem; color:var(--text-secondary); transition:.3s ease;}
+  .time-opt.selected{border-color:var(--gold); color:var(--gold);}
+
+  .pref-row{display:flex; justify-content:space-between; align-items:center; padding:16px 0; border-bottom:1px solid var(--line); font-size:0.94rem;}
+  .toggle{width:38px; height:20px; border:1px solid var(--gold-soft); border-radius:20px; position:relative; background:none;}
+  .toggle::after{content:""; position:absolute; width:12px; height:12px; border-radius:50%; background:var(--text-secondary); top:3px; left:3px; transition:.3s ease;}
+  .toggle.on{border-color:var(--gold);}
+  .toggle.on::after{background:var(--gold); left:20px;}
+
+  .wizard-nav{display:flex; justify-content:space-between; margin-top:40px;}
+  .btn-solid{background:var(--gold); color:#0B0B0C; border:1px solid var(--gold); padding:14px 30px; font-size:0.72rem; letter-spacing:0.14em; transition:opacity .3s ease;}
+  .btn-solid:hover{opacity:0.85;}
+  .btn-text{background:none; border:none; color:var(--text-secondary); font-size:0.72rem; letter-spacing:0.14em;}
+  .btn-text:hover{color:var(--text-primary);}
+
+  .confirm-panel{text-align:center; padding:20px 0;}
+  .confirm-panel .mark{width:44px; height:44px; border:1px solid var(--gold); border-radius:50%; margin:0 auto 26px; display:flex; align-items:center; justify-content:center; color:var(--gold); font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.4rem;}
+  .confirm-panel h3{font-size:1.7rem; margin-bottom:14px;}
+  .confirm-panel p{color:var(--text-secondary); line-height:1.8; font-size:0.94rem;}
+  .confirm-detail{margin-top:26px; border-top:1px solid var(--line); padding-top:22px; text-align:left; color:var(--text-secondary); font-size:0.9rem; line-height:2;}
+  .confirm-detail b{color:var(--text-primary); font-weight:500;}
+
+  /* ---------- LOCATION ---------- */
+  .location{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;}
+  @media (max-width:820px){.location{grid-template-columns:1fr; gap:40px;}}
+  .loc-visual{aspect-ratio:16/11; background:radial-gradient(circle at 40% 60%, #191410, #0a0908 78%); border:1px solid var(--line); position:relative;}
+  .loc-visual::after{content:""; position:absolute; inset:0; background:linear-gradient(120deg, rgba(212,175,55,0.08), transparent 60%);}
+  .loc-list dt{font-size:0.68rem; letter-spacing:0.14em; color:var(--champagne); margin-top:26px;}
+  .loc-list dt:first-child{margin-top:0;}
+  .loc-list dd{margin:8px 0 0; color:var(--text-secondary); line-height:1.8; font-size:0.96rem;}
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--line); padding:80px 0 34px;}
+  .foot-top{text-align:center; margin-bottom:54px;}
+  .foot-top .brand{font-size:1.9rem; letter-spacing:0.3em; display:block;}
+  .foot-top .tag{margin-top:12px; font-size:0.68rem; letter-spacing:0.2em; color:var(--text-secondary);}
+  .foot-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:30px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:46px 0;}
+  @media (max-width:760px){.foot-grid{grid-template-columns:1fr 1fr; row-gap:36px;}}
+  .foot-grid h4{font-size:0.68rem; letter-spacing:0.18em; color:var(--champagne); margin-bottom:16px; font-weight:400;}
+  .foot-grid p, .foot-grid a{display:block; color:var(--text-secondary); font-size:0.9rem; line-height:1.9;}
+  .foot-grid a:hover{color:var(--text-primary);}
+  .foot-bottom{display:flex; justify-content:space-between; margin-top:34px; font-size:0.78rem; color:var(--text-secondary); flex-wrap:wrap; gap:10px;}
+  .foot-bottom a{margin-left:18px;}
+</style>
+</head>
+<body>
+
+<header class="nav" id="siteNav">
+  <div class="wrap nav-inner">
+    <a href="#" class="brand">NOOR &amp; NAAN</a>
+    <nav class="links">
+      <a href="#dining">Dining</a>
+      <a href="#experience">Experience</a>
+      <a href="#story">Story</a>
+      <a href="#menu">Menu</a>
+      <a href="#reserve">Reserve</a>
+    </nav>
+    <a href="#reserve" class="nav-cta">Reserve a Table</a>
+    <button class="burger" id="burgerBtn" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose" aria-label="Close menu">✕</button>
+  <a href="#dining">Dining</a>
+  <a href="#experience">Experience</a>
+  <a href="#story">Story</a>
+  <a href="#menu">Menu</a>
+  <a href="#reserve">Reserve</a>
+</div>
+
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="mouse-glow" id="mouseGlow"></div>
+  <div class="hero-content">
+    <span class="eyebrow">Mumbai · Est. 2014</span>
+    <h1>Contemporary Indian<br><em>dining</em>, after dark.</h1>
+    <p class="hero-sub">Fire, spice and seasonality, reimagined at a single counter and two quiet rooms. Nineteen covers a night, by reservation only.</p>
+    <div class="hero-ctas">
+      <a href="#menu" class="btn-outline">Explore the Menu</a>
+      <a href="#reserve" class="btn-ghost">Reserve a Table →</a>
+    </div>
+  </div>
+  <div class="scroll-cue">SCROLL<div class="line"></div></div>
+</section>
+
+<section class="intro reveal" id="dining">
+  <div class="wrap">
+    <blockquote>"We cook the way Bombay eats after midnight — unhurried, a little smoky, entirely without apology."</blockquote>
+    <p>Rooted in tradition, reimagined for the modern table. Our kitchen explores the relationship between fire, spice, seasonality and memory — served across a room built for long evenings and quiet conversation.</p>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker"><span class="dash"></span>Chef's Canvas</div>
+      <h2>A tasting of the season.</h2>
+      <p>Six courses, changed monthly, built around whatever the coast and the hill farms have sent that week.</p>
+    </div>
+
+    <div class="menu-grid">
+      <div class="dish reveal">
+        <div class="dish-frame"><span class="dish-num">I</span><div class="dish-art art-1"></div></div>
+        <div class="dish-info">
+          <h3>Smoked Lamb Shoulder</h3>
+          <div class="dish-meta">
+            Fourteen-hour slow cook over coal, finished with a black cardamom jus.
+            <div class="dish-rule"></div>
+            <div class="dish-tag">Pairs well with a young Cabernet Sauvignon</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish reveal">
+        <div class="dish-frame"><span class="dish-num">II</span><div class="dish-art art-2"></div></div>
+        <div class="dish-info">
+          <h3>Kashmiri Saffron Risotto</h3>
+          <div class="dish-meta">
+            Aged basmati, finished tableside with saffron butter and toasted pine.
+            <div class="dish-rule"></div>
+            <div class="dish-tag">Pairs well with an off-dry Riesling</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish reveal">
+        <div class="dish-frame"><span class="dish-num">III</span><div class="dish-art art-3"></div></div>
+        <div class="dish-info">
+          <h3>Beetroot &amp; Burrata Chaat</h3>
+          <div class="dish-meta">
+            Roasted beetroot, whipped burrata, tamarind and puffed amaranth.
+            <div class="dish-rule"></div>
+            <div class="dish-tag">Pairs well with a dry rosé</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish reveal">
+        <div class="dish-frame"><span class="dish-num">IV</span><div class="dish-art art-4"></div></div>
+        <div class="dish-info">
+          <h3>Tandoor-Roasted Pomfret</h3>
+          <div class="dish-meta">
+            Whole coastal pomfret, malabar spice crust, curry leaf oil.
+            <div class="dish-rule"></div>
+            <div class="dish-tag">Pairs well with a coastal Chablis</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="story">
+  <div class="wrap">
+    <div class="chef reveal">
+      <div class="chef-portrait"></div>
+      <div>
+        <p class="chef-quote">"Every dish begins with a memory — usually my grandmother's kitchen, usually involving too much smoke."</p>
+        <div class="chef-name">CHEF ARJUN MEHTA — HEAD CHEF &amp; PROPRIETOR</div>
+        <p class="body">Arjun trained across Lyon and Bangkok before returning to Mumbai to build a menu around the spice trade routes of his childhood. Noor and Naan is his second restaurant, and the first built entirely around live fire.</p>
+        <a href="#reserve" class="link-arrow">Discover the full story →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="spice-section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker"><span class="dash"></span>Spice &amp; Heritage</div>
+      <h2>Ingredients with a point of origin.</h2>
+    </div>
+    <div class="spice-layout reveal">
+      <div class="spice-visual" id="spiceVisual">
+        <button class="hotspot" style="top:32%; left:40%;" data-spice="saffron" aria-label="Saffron"></button>
+        <button class="hotspot" style="top:58%; left:66%;" data-spice="cardamom" aria-label="Cardamom"></button>
+        <button class="hotspot" style="top:70%; left:30%;" data-spice="clove" aria-label="Clove"></button>
+      </div>
+      <div class="spice-text">
+        <h3 id="spiceOrigin">Kashmir</h3>
+        <div class="spice-title" id="spiceTitle">Saffron</div>
+        <p id="spiceBody">Hand-picked from the Pampore fields, prized for its delicate floral aroma and deep golden hue. Used in our signature saffron risotto and finished rice preparations.</p>
+        <div class="spice-note">Tap the markers to explore each ingredient</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <div class="kicker"><span class="dash"></span>Dining Experience</div>
+      <h2>Three rooms, one kitchen.</h2>
+    </div>
+  </div>
+  <div class="wrap reveal">
+    <div class="exp-grid">
+      <div class="exp-card">
+        <div class="exp-num">Room</div>
+        <h3>The Dining Room</h3>
+        <p>An intimate setting for fourteen tables, designed for long evenings and unhurried conversation.</p>
+      </div>
+      <div class="exp-card">
+        <div class="exp-num">Room</div>
+        <h3>Private Courtyard</h3>
+        <p>A secluded outdoor space under the night sky, available for parties of six to twelve.</p>
+      </div>
+      <div class="exp-card">
+        <div class="exp-num">Room</div>
+        <h3>Chef's Counter</h3>
+        <p>Six seats facing the fire, where every course is plated in front of you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reserve" id="reserve">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <div class="kicker"><span class="dash"></span>Reservations</div>
+      <h2>Reserve your table.</h2>
+      <p>Nineteen covers a night. We recommend booking at least a week ahead for weekend evenings.</p>
+    </div>
+
+    <div class="reserve-box reveal">
+      <div class="step-track">
+        <span class="step active" data-s="1">01 · Experience</span>
+        <span class="sep"></span>
+        <span class="step" data-s="2">02 · Date &amp; Guests</span>
+        <span class="sep"></span>
+        <span class="step" data-s="3">03 · Preferences</span>
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="step-panel active" id="panel1">
+        <div class="step-title">CHOOSE YOUR EXPERIENCE</div>
+        <div class="exp-option selected" data-exp="Main Dining Room">
+          <div><h4>Main Dining Room</h4><span>Fourteen tables · seats 2–8</span></div>
+        </div>
+        <div class="exp-option" data-exp="Private Courtyard">
+          <div><h4>Private Courtyard</h4><span>Outdoor · seats 6–12</span></div>
+        </div>
+        <div class="exp-option" data-exp="Chef's Counter">
+          <div><h4>Chef's Counter</h4><span>Six seats · facing the fire</span></div>
+        </div>
+        <div class="wizard-nav">
+          <span></span>
+          <button class="btn-solid" onclick="goStep(2)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-panel" id="panel2">
+        <div class="step-title">DATE &amp; GUESTS</div>
+        <div class="row-flex">
+          <div style="flex:1; min-width:180px;">
+            <label class="field-label">Date</label>
+            <input type="date" id="resDate">
+          </div>
+          <div>
+            <label class="field-label">Guests</label>
+            <div class="stepper">
+              <button onclick="changeGuests(-1)">−</button>
+              <span id="guestCount">2</span>
+              <button onclick="changeGuests(1)">+</button>
+            </div>
+          </div>
+        </div>
+        <label class="field-label">Time</label>
+        <div class="time-grid" id="timeGrid">
+          <div class="time-opt selected" data-t="7:00 PM">7:00 PM</div>
+          <div class="time-opt" data-t="7:30 PM">7:30 PM</div>
+          <div class="time-opt" data-t="8:00 PM">8:00 PM</div>
+          <div class="time-opt" data-t="8:30 PM">8:30 PM</div>
+        </div>
+        <div class="wizard-nav">
+          <button class="btn-text" onclick="goStep(1)">← Back</button>
+          <button class="btn-solid" onclick="goStep(3)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-panel" id="panel3">
+        <div class="step-title">PREFERENCES</div>
+        <div class="pref-row">Dietary restrictions <button class="toggle" data-pref="Dietary restrictions noted" onclick="toggleThis(this)"></button></div>
+        <div class="pref-row">Wine pairing <button class="toggle" data-pref="Wine pairing requested" onclick="toggleThis(this)"></button></div>
+        <div class="pref-row">Special occasion <button class="toggle" data-pref="Special occasion flagged" onclick="toggleThis(this)"></button></div>
+        <div class="wizard-nav">
+          <button class="btn-text" onclick="goStep(2)">← Back</button>
+          <button class="btn-solid" onclick="submitReservation()">Request Reservation</button>
+        </div>
+      </div>
+
+      <!-- CONFIRM -->
+      <div class="step-panel" id="panelConfirm">
+        <div class="confirm-panel">
+          <div class="mark">✓</div>
+          <h3>Request received</h3>
+          <p>We'll confirm your table by email within a few hours. This is a demo — no reservation has actually been made.</p>
+          <div class="confirm-detail" id="confirmDetail"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="location">
+  <div class="wrap">
+    <div class="location reveal">
+      <div class="loc-visual"></div>
+      <dl class="loc-list">
+        <dt>VISIT</dt>
+        <dd>12 Heritage Lane, Bandra West<br>Mumbai, India 400050</dd>
+        <dt>HOURS</dt>
+        <dd>Tuesday – Sunday, 6 PM – 11 PM<br>Closed Mondays</dd>
+        <dt>CONTACT</dt>
+        <dd>+91 98765 43210<br>reservations@noorandnaan.com</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <span class="brand" style="font-size:1.7rem; letter-spacing:0.18em;">NOOR &amp; NAAN</span>
+      <div class="tag">CONTEMPORARY INDIAN DINING</div>
+    </div>
+    <div class="foot-grid">
+      <div>
+        <h4>VISIT</h4>
+        <p>12 Heritage Lane</p>
+        <p>Bandra West, Mumbai</p>
+      </div>
+      <div>
+        <h4>HOURS</h4>
+        <p>Tue – Sun</p>
+        <p>6 PM – 11 PM</p>
+      </div>
+      <div>
+        <h4>CONTACT</h4>
+        <p>+91 98765 43210</p>
+        <p>reservations@noorandnaan.com</p>
+      </div>
+      <div>
+        <h4>FOLLOW</h4>
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Noor and Naan</span>
+      <span><a href="#">Privacy</a><a href="#">Terms</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // --- Nav scroll state ---
+  const siteNav = document.getElementById('siteNav');
+  window.addEventListener('scroll', () => {
+    siteNav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // --- Mobile menu ---
+  const burgerBtn = document.getElementById('burgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileClose = document.getElementById('mobileClose');
+  burgerBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+  mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  // --- Mouse-follow gold glow (disabled on touch) ---
+  const isTouch = window.matchMedia('(hover: none)').matches;
+  if (!isTouch) {
+    const glow = document.getElementById('mouseGlow');
+    document.querySelector('.hero').addEventListener('mousemove', (e) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      glow.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+      glow.style.setProperty('--my', `${e.clientY - rect.top}px`);
+    });
+  }
+
+  // --- Scroll reveal ---
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // --- Dish card tap-to-open on touch ---
+  document.querySelectorAll('.dish').forEach(d => {
+    d.addEventListener('click', () => {
+      if (isTouch) d.classList.toggle('open');
+    });
+  });
+
+  // --- Spice hotspots ---
+  const spiceData = {
+    saffron: { origin: 'Kashmir', title: 'Saffron', body: 'Hand-picked from the Pampore fields, prized for its delicate floral aroma and deep golden hue. Used in our signature saffron risotto and finished rice preparations.' },
+    cardamom: { origin: 'Kerala', title: 'Cardamom', body: 'Warm, floral and faintly sweet. We use whole green pods across our slow-cooked meats and finish several desserts with ground cardamom.' },
+    clove: { origin: 'Zanzibar & the Malabar coast', title: 'Clove', body: 'A dark, resinous warmth that anchors our masalas. Toasted whole and ground fresh for every batch of spice blend.' }
+  };
+  document.querySelectorAll('.hotspot').forEach(h => {
+    h.addEventListener('click', () => {
+      const d = spiceData[h.dataset.spice];
+      document.getElementById('spiceOrigin').textContent = d.origin;
+      document.getElementById('spiceTitle').textContent = d.title;
+      document.getElementById('spiceBody').textContent = d.body;
+    });
+  });
+
+  // --- Reservation wizard state ---
+  let guests = 2;
+  let selectedExp = "Main Dining Room";
+  let selectedTime = "7:00 PM";
+  let prefs = [];
+
+  document.querySelectorAll('.exp-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      document.querySelectorAll('.exp-option').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      selectedExp = opt.dataset.exp;
+    });
+  });
+
+  document.querySelectorAll('.time-opt').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.time-opt').forEach(o => o.classList.remove('selected'));
+      t.classList.add('selected');
+      selectedTime = t.dataset.t;
+    });
+  });
+
+  function changeGuests(delta) {
+    guests = Math.max(1, Math.min(12, guests + delta));
+    document.getElementById('guestCount').textContent = guests;
+  }
+
+  function toggleThis(btn) {
+    btn.classList.toggle('on');
+    const label = btn.dataset.pref;
+    if (btn.classList.contains('on')) {
+      prefs.push(label);
+    } else {
+      prefs = prefs.filter(p => p !== label);
+    }
+  }
+
+  function goStep(n) {
+    document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel' + n).classList.add('active');
+    document.querySelectorAll('.step-track .step').forEach(s => {
+      s.classList.toggle('active', Number(s.dataset.s) <= n);
+    });
+  }
+
+  function submitReservation() {
+    const dateVal = document.getElementById('resDate').value || 'a date to be confirmed';
+    document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panelConfirm').classList.add('active');
+    document.getElementById('confirmDetail').innerHTML = `
+      <div><b>Experience:</b> ${selectedExp}</div>
+      <div><b>Date:</b> ${dateVal}</div>
+      <div><b>Time:</b> ${selectedTime}</div>
+      <div><b>Guests:</b> ${guests}</div>
+      <div><b>Preferences:</b> ${prefs.length ? prefs.join(', ') : 'None noted'}</div>
+    `;
+  }
+</script>
+
+</body>
+</html>
